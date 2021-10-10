@@ -1,5 +1,10 @@
-@main def hello: Unit = 
-  println("Hello world!")
-  println(msg)
+import zio.*
+import zio.console.{putStrLn}
+import CommandLine.getUserName
 
-def msg = "I was compiled by Scala 3. :)"
+object Main extends zio.App {
+  def run(args: List[String]): ZIO[ZEnv, Nothing, ExitCode] =
+    (for {
+      user <- putStrLn("Welcome to guess the number") *> getUserName
+    } yield ()).exitCode
+}
