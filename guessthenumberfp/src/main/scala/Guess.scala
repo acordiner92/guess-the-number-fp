@@ -11,9 +11,9 @@ object Guess:
     allCatch.opt(new Guess(value.toInt) {})
 
   def getGuess: ZIO[Console, IOException, Guess] =
-    for {
+    for
       userGuessInput <- getUserInput("Which number do you guess?")
       guess <- ZIO.fromOption(Guess.make(userGuessInput)) <> (putStrLn(
         "Your input is not a valid number"
       ) *> getGuess)
-    } yield guess
+    yield guess

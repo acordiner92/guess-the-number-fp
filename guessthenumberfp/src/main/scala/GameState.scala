@@ -27,7 +27,7 @@ case class GameState(
     }
 }
 
-object GameState {
+object GameState:
   def make(user: User): ZIO[Random, Nothing, GameState] =
     nextIntBounded(50).map(numberToGuess =>
       GameState(user, numberToGuess, List(), Status.Unchanged, 10)
@@ -66,4 +66,3 @@ object GameState {
         status = Status.ReallyCold,
         guesses = guess.value :: gameState.guesses
       )
-}
