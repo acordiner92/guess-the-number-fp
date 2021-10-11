@@ -9,16 +9,24 @@ object GameEngine:
     updatedGameState = GameState.addGuess(guess, gameState)
     _ <- updatedGameState.status match {
       case Status.Won =>
-        putStrLn("Congratulations You won!") *> gameState.renderState
+        putStrLn(
+          s"Congratulations ${updatedGameState.user.firstName} you won!"
+        ) *> updatedGameState.renderState
       case Status.Lost =>
-        putStrLn("Oh no you lost!") *> gameState.renderState
+        putStrLn(
+          s"Oh no ${updatedGameState.user.firstName} you lost!"
+        ) *> updatedGameState.renderState
+      case Status.ReallyWarm =>
+        putStrLn(s"getting real warm") *> execute(updatedGameState)
       case Status.Warmer =>
-        putStrLn(s"Hmmmm warmer") *> execute(updatedGameState)
+        putStrLn(s"Hm warmer") *> execute(updatedGameState)
       case Status.Colder =>
         putStrLn(s"Oh dear your colder") *> execute(updatedGameState)
+      case Status.ReallyCold =>
+        putStrLn(s"getting super cold") *> execute(updatedGameState)
       case Status.Unchanged =>
         putStrLn(
-          s"You've already tried that number!"
+          s"${updatedGameState.user.firstName} you have already tried that number!"
         ) *> execute(gameState)
     }
 
